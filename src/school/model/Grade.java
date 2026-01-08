@@ -1,5 +1,8 @@
 package school.model;
 
+import school.utils.DateUtils;
+import school.utils.GradeUtils;
+
 public class Grade{
     private int id;
     private int studentId;
@@ -8,11 +11,21 @@ public class Grade{
     private String date;
 
     public Grade(int id, int studentId, String subject, int value, String date) {
-        this.date = date;
+  
         this.id = id;
         this.studentId = studentId;
         this.subject = subject;
+         // Валидация оценки
+        if (!GradeUtils.isValidGradeValue(value)) {
+            throw new IllegalArgumentException("Invalid grade value: " + value);
+        }
         this.value = value;
+        
+        // Валидация даты
+        if (!DateUtils.isValidDate(date)) {
+            throw new IllegalArgumentException("Invalid date format: " + date);
+        }
+        this.date = date;
     }
 
     public int getId() {

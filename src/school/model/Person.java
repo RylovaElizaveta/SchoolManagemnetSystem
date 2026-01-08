@@ -1,11 +1,17 @@
 package school.model;
 
+import school.utils.NameUtils;
+
 public abstract class Person{
     private int id;
     private String fullName;
 
     public Person(String fullName, int id) {
-        this.fullName = fullName;
+          if (NameUtils.isValidName(fullName)) {
+            this.fullName = NameUtils.formatFullName(fullName);
+        } else {
+            throw new IllegalArgumentException("Invalid name: " + fullName);
+        }
         this.id = id;
     }
 
